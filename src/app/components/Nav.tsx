@@ -9,7 +9,7 @@ const Nav = () => {
     return (
         <div className="bg-navColor w-[200px] h-screen p-4 hidden md:flex flex-col items-center gap-6 pt-10">
             {navItems.map((item, index) => (
-                <div key={index}>
+                <div key={index} className="flex flex-row gap-2 items-center mr-auto">
                     <Image
                         src={item.icon}
                         alt={item.label}
@@ -22,6 +22,7 @@ const Nav = () => {
                             }
                         }}
                     />
+                    <label>{item.label}</label>
                 </div>
             ))}
         </div>

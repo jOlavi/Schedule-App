@@ -1,22 +1,35 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import OpenTodos from "./OpenTodos";
 import DoneTodos from "./DoneTodos";
 
+type Todo = {
+    id: number;
+    text: string;
+    status: boolean;
+};
+
 const Todos = () => {
     const [todo, setTodo] = useState("");
-    const [todosList, setTodosList] = useState([
-        { id: 1, text: "Buy groceries", status: false },
-        { id: 2, text: "Walk the dog", status: false },
-        { id: 3, text: "Finish project", status: true },
-        {
-            id: 4,
-            text: "Remember to call to your mom and tell her that you love her! and then you need to add some more text here to test does it realy truncate",
-            status: true,
-        },
-        { id: 5, text: "Read a book", status: false },
-        { id: 6, text: "Clean the house", status: false },
-    ]);
+    const [todosList, setTodosList] = useState<Todo[]>([]);
+
+    useEffect(() => {
+        const fetchTodos = async () => {
+            try {
+                const response = await fetch("/api/todos");
+                console.log("Fetching todos...");
+                console.log("Response status:", response.status);
+                if (!response.ok) {
+                    throw new Error("Network response was not ok");
+                }
+                const data = await response.json();
+                setTodosList(data);
+            } catch (error) {
+                console.error("Error fetching todos:", error);
+            }
+        };
+        fetchTodos();
+    }, []); // Fetch todos when the component mounts;
 
     const onStatusChange = (id: number) => {
         setTodosList(

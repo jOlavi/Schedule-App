@@ -7,4 +7,5 @@ export const navItems = [
     { icon: "/images/list.svg", label: "Tasks", path: "/tasks" },
     { icon: "/images/list-check.svg", label: "Completed", path: "/completed" },
     { icon: "/images/calendar-week.svg", label: "Calendar", path: "/calendar" },
+    { icon: "/images/bulb.svg", label: "Ideas", path: "/ideas" },
 ];

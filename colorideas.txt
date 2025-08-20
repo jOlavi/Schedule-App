@@ -4,3 +4,17 @@ Ideoita, mitä värejä voisi kokeilla.
 #86ABCF
 #E1CBD7
 #C38EB4
+
+
+####
+database käyttäjä tunnarit:
+Host: db
+Port: 5432
+Username: scheduleuser
+Password: schedulepass
+
+pgadmin tunnarit:
+Email: admin@admin.com
+Password: adminpass
+
+http://localhost:8080
