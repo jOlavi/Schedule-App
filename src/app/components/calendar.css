@@ -1,0 +1,34 @@
+.rbc-calendar {
+    border-radius: 8px;
+    padding: 1rem;
+    background: var(--color-navColor);
+}
+
+.rbc-events-container {
+    width: 100%;
+}
+/* Weekly view styles start here  */
+.rbc-timeslot-group {
+    min-height: 90px;
+}
+.rbc-time-slot {
+    border-top: none !important; /* removes the line between time slots */
+}
+.rbc-today {
+    background-color: var(--color-background) !important; /* sets today's background color */
+}
+
+.rbc-day-slot {
+    border: 1px solid var(--color-background) !important; /* adds border to day cells */
+}
+
+/* Month view styles starts here */
+.rbc-day-bg {
+    border: 1px solid var(--color-background) !important; /* adds border to day cells */
+}
+.rbc-month-row {
+    border: none !important; /* removes the border between rows */
+}
+.rbc-month-view {
+    border: none !important;
+}
