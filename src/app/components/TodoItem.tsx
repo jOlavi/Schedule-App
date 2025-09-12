@@ -1,62 +1,54 @@
+"use client";
 import Image from "next/image";
-import React from "react";
-import { Todo } from "../lib/types";
+import React, { useState } from "react";
+import { TodoType } from "../lib/types";
+
+import TodoView from "./TodoView";
 
 interface TodoItemProps {
     todo: { id: number; text: string; status: boolean };
     onStatusChange: (id: number) => void;
-    requestDelete: (todo: Todo) => void;
+    requestDelete: (todo: TodoType) => void;
 }
 
 const TodoItem = ({ todo, onStatusChange, requestDelete }: TodoItemProps) => {
     // Handle deleting a todo
-
+    const [variant, setVariant] = useState<"small" | "big">("small");
+    const [editMode, setEditMode] = useState(false);
+    const [textValue, setTextValue] = useState(todo.text || "");
     return (
-        <div className="bg-background p-4 rounded-lg shadow-md" key={todo.id}>
-            <div className="flex flex-row gap-6 items-center">
-                <input
-                    type="checkbox"
-                    className=" scale-150 cursor-pointer"
-                    checked={todo.status}
-                    onChange={() => onStatusChange(todo.id)}
-                />
-                <h1
-                    className={`text-xl tracking-wider truncate max-w-xs ${
-                        todo.status === true ? "line-through" : ""
-                    }`}
-                >
-                    {todo.text}
-                </h1>
-                <p className="flex flex-row ml-auto gap-2 items-center text-gray-500">
-                    <Image
-                        src="/images/calendar-week.svg"
-                        alt="calendar"
-                        width={22}
-                        height={22}
-                        className="small-calendar"
-                    />
-                    18/10/2025
-                </p>
-                <div className="flex flex-row gap-4 ">
-                    <button>
+        <div className={`bg-background rounded-lg shadow-md `} key={todo.id}>
+            <div className="flex flex-row gap-6 items-center  mr-4">
+                <div className="cursor-pointer pl-2">
+                    <button
+                        onClick={() => {
+                            setVariant(variant === "small" ? "big" : "small");
+                            setEditMode(false);
+                        }}
+                        className="flex items-center justify-center w-10  h-full cursor-pointer"
+                    >
                         <Image
-                            src="/images/edit.svg"
-                            alt="edit"
-                            width={20}
-                            height={20}
-                            className="icon-small hover:opacity-80 transition-opacity duration-200"
-                        />
-                    </button>
-                    <button onClick={() => requestDelete(todo)}>
-                        <Image
-                            src="/images/trash.svg"
-                            alt="delete"
-                            width={20}
-                            height={20}
-                            className="icon-small hover:opacity-80 transition-opacity duration-200"
+                            src={
+                                variant === "big" ? "/images/arrowup.svg" : "/images/arrowdown.svg"
+                            }
+                            alt="arrow"
+                            width={25}
+                            height={25}
+                            className="icon-small"
                         />
                     </button>
                 </div>
+                <TodoView
+                    onStatusChange={onStatusChange}
+                    todo={todo}
+                    requestDelete={requestDelete}
+                    setEditMode={setEditMode}
+                    editMode={editMode}
+                    textValue={textValue}
+                    setTextValue={setTextValue}
+                    variant={variant}
+                    setVariant={setVariant}
+                />
             </div>
         </div>
     );

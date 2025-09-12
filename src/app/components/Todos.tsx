@@ -3,19 +3,14 @@ import React, { useEffect, useState } from "react";
 import OpenTodos from "./OpenTodos";
 import DoneTodos from "./DoneTodos";
 import PopUpAlert from "./PopUpDelete";
-
-type Todo = {
-    id: number;
-    text: string;
-    status: boolean;
-};
+import { TodoType } from "../lib/types";
 
 const Todos = () => {
     const [todo, setTodo] = useState("");
-    const [todosList, setTodosList] = useState<Todo[]>([]);
+    const [todosList, setTodosList] = useState<TodoType[]>([]);
     const [errorText, setErrorText] = useState<string>("");
     const [popupVisible, setPopupVisible] = useState(false);
-    const [todoToDelete, setTodoToDelete] = useState<Todo | null>(null);
+    const [todoToDelete, setTodoToDelete] = useState<TodoType | null>(null);
 
     useEffect(() => {
         const fetchTodos = async () => {
@@ -40,6 +35,7 @@ const Todos = () => {
             todosList.map((todo) => (todo.id === id ? { ...todo, status: !todo.status } : todo))
         );
     };
+
     // Handle adding a new todo
     const handleAddTodo = async () => {
         if (!todo.trim()) {
@@ -64,10 +60,12 @@ const Todos = () => {
             console.error("Error adding todo:", error);
         }
     };
-    const requestDelete = (todo: Todo) => {
+    // Prepare to delete a todo
+    const requestDelete = (todo: TodoType) => {
         setTodoToDelete(todo);
         setPopupVisible(true);
     };
+    // Handle deleting a todo
     const handleDelete = async (id: number) => {
         try {
             const response = await fetch(`/api/todos/${id}`, {
@@ -87,7 +85,7 @@ const Todos = () => {
         }
     };
     return (
-        <div className="w-[600px]">
+        <div className="w-[700px]">
             <div className=" flex flex-row gap-4 justify-center">
                 <input
                     value={todo}

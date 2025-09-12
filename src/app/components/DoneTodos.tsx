@@ -1,12 +1,12 @@
 import React from "react";
 import Image from "next/image";
 import TodoItem from "./TodoItem";
-import type { Todo } from "../lib/types";
+import type { TodoType } from "../lib/types";
 
 interface ListOfTodosProps {
     todosList: { id: number; text: string; status: boolean }[];
     onStatusChange: (id: number) => void;
-    requestDelete: (todo: Todo) => void;
+    requestDelete: (todo: TodoType) => void;
 }
 
 const DoneTodos = ({ todosList, onStatusChange, requestDelete }: ListOfTodosProps) => {
