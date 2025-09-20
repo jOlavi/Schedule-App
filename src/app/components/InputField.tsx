@@ -12,7 +12,7 @@ const InputField = ({ textValue, setTextValue, variant }: InputFieldProps) => {
         <div className=" w-[320px] ">
             <textarea
                 className={`
-        border border-gray-500 p-2 bg-background rounded-lg w-full  text-xl
+        border border-gray-500 p-2 bg-background rounded-lg w-full  text-lg
         focus:bg-navColor focus:outline-none 
     `}
                 rows={variant === "big" ? 4 : 2}

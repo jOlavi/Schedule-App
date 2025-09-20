@@ -1,7 +1,9 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import Image from "next/image";
 import { TodoType } from "../lib/types";
 import InputField from "./InputField";
+import SelectDay from "./SelectDay";
 
 interface TodoViewProps {
     todo: { id: number; text: string; status: boolean };
@@ -26,9 +28,11 @@ const TodoView = ({
     variant = "small",
     setVariant,
 }: TodoViewProps) => {
-    const handleEditModeToggle = () => {
+    const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+
+    const handleEditModeToggle = (variant: string) => {
         setEditMode(!editMode);
-        setVariant("big");
+        setVariant(variant as "small" | "big");
     };
     return (
         <div
@@ -56,39 +60,61 @@ const TodoView = ({
                 ) : (
                     todo.text
                 )}
-                {editMode && <button>Save</button>}
+                {editMode && (
+                    <div className="text-lg flex flex-row gap-2 mt-2 ">
+                        <button
+                            className="px-2 py-2 w-20 bg-navColor text-white rounded hover:bg-red-400 cursor-pointer"
+                            onClick={() => handleEditModeToggle("small")}
+                        >
+                            Cancel
+                        </button>
+                        <button className="px-2 py-2 w-20 bg-[#62A388] text-white rounded hover:bg-green-400 cursor-pointer ">
+                            Save
+                        </button>
+                    </div>
+                )}
             </h1>
-            <p className="flex flex-row ml-auto gap-2 items-center text-gray-500">
-                <Image
-                    src="/images/calendar-week.svg"
-                    alt="calendar"
-                    width={22}
-                    height={22}
-                    className="small-calendar"
+            <div
+                className={`flex  justify-end ml-auto ${
+                    variant === "big" ? "flex-col items-center" : "flex-row gap-4"
+                }`}
+            >
+                <SelectDay
+                    date={selectedDate}
+                    onChange={(date) => {
+                        setSelectedDate(date);
+                        // Tee PATCH-pyyntö jos haluat tallentaa päivämäärän
+                    }}
+                    editMode={editMode}
                 />
-                18/10/2025
-            </p>
-            <div className="flex flex-row gap-4">
-                <button>
-                    <Image
-                        src="/images/edit.svg"
-                        alt="edit"
-                        width={20}
-                        height={20}
-                        className="icon-small hover:opacity-80 transition-opacity duration-200"
-                        onClick={handleEditModeToggle}
-                    />
-                </button>
 
-                <button onClick={() => requestDelete(todo)}>
-                    <Image
-                        src="/images/trash.svg"
-                        alt="delete"
-                        width={20}
-                        height={20}
-                        className="icon-small hover:opacity-80 transition-opacity duration-200"
-                    />
-                </button>
+                {variant === "big" && (
+                    <div className="flex flex-row gap-3 mt-2">
+                        <button className={`${variant === "big" && "crud-button"}`}>
+                            <Image
+                                src="/images/edit.svg"
+                                alt="edit"
+                                width={20}
+                                height={20}
+                                className={`icon-small hover:opacity-80 transition-opacity duration-200`}
+                                onClick={() => handleEditModeToggle("big")}
+                            />
+                        </button>
+
+                        <button
+                            onClick={() => requestDelete(todo)}
+                            className={`${variant === "big" && "crud-button"}`}
+                        >
+                            <Image
+                                src="/images/trash.svg"
+                                alt="delete"
+                                width={20}
+                                height={20}
+                                className="icon-small hover:opacity-80 transition-opacity duration-200"
+                            />
+                        </button>
+                    </div>
+                )}
             </div>
         </div>
     );
