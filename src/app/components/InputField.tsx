@@ -9,7 +9,7 @@ interface InputFieldProps {
 
 const InputField = ({ textValue, setTextValue, variant }: InputFieldProps) => {
     return (
-        <div className=" w-[320px] ">
+        <div className=" w-[360px] ">
             <textarea
                 className={`
         border border-gray-500 p-2 bg-background rounded-lg w-full  text-lg

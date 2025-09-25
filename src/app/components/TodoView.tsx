@@ -64,7 +64,7 @@ const TodoView = ({
                     <div className="text-lg flex flex-row gap-2 mt-2 ">
                         <button
                             className="px-2 py-2 w-20 bg-navColor text-white rounded hover:bg-red-400 cursor-pointer"
-                            onClick={() => handleEditModeToggle("small")}
+                            onClick={() => handleEditModeToggle("big")}
                         >
                             Cancel
                         </button>
