@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 const Nav = () => {
     const router = useRouter();
     return (
-        <div className="bg-navColor w-[200px] h-screen p-4 hidden md:flex flex-col items-center gap-6 pt-10">
+        <div className="bg-navColor w-[200px] h-screen fixed top-0 left-0 p-4 hidden md:flex flex-col items-center gap-6 pt-10">
             {navItems.map((item, index) => (
                 <div
                     key={index}

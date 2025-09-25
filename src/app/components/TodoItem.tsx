@@ -6,13 +6,15 @@ import { TodoType } from "../lib/types";
 import TodoView from "./TodoView";
 
 interface TodoItemProps {
-    todo: { id: number; text: string; status: boolean };
-    onStatusChange: (id: number) => void;
+    todo: { id: number; text: string; status: boolean; created_at: Date | string };
+    onTodoUpdate: (
+        id: number,
+        updates: { text?: string; status?: boolean; due_date?: string }
+    ) => void;
     requestDelete: (todo: TodoType) => void;
 }
 
-const TodoItem = ({ todo, onStatusChange, requestDelete }: TodoItemProps) => {
-    // Handle deleting a todo
+const TodoItem = ({ todo, onTodoUpdate, requestDelete }: TodoItemProps) => {
     const [variant, setVariant] = useState<"small" | "big">("small");
     const [editMode, setEditMode] = useState(false);
     const [textValue, setTextValue] = useState(todo.text || "");
@@ -39,7 +41,7 @@ const TodoItem = ({ todo, onStatusChange, requestDelete }: TodoItemProps) => {
                     </button>
                 </div>
                 <TodoView
-                    onStatusChange={onStatusChange}
+                    onTodoUpdate={onTodoUpdate}
                     todo={todo}
                     requestDelete={requestDelete}
                     setEditMode={setEditMode}

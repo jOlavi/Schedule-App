@@ -6,8 +6,11 @@ import InputField from "./InputField";
 import SelectDay from "./SelectDay";
 
 interface TodoViewProps {
-    todo: { id: number; text: string; status: boolean };
-    onStatusChange: (id: number) => void;
+    todo: { id: number; text: string; status: boolean; created_at: Date | string };
+    onTodoUpdate: (
+        id: number,
+        updates: { text?: string; status?: boolean; due_date?: string }
+    ) => void;
     requestDelete: (todo: TodoType) => void;
     setEditMode: (editMode: boolean) => void;
     editMode?: boolean;
@@ -19,7 +22,7 @@ interface TodoViewProps {
 
 const TodoView = ({
     todo,
-    onStatusChange,
+    onTodoUpdate,
     requestDelete,
     setEditMode,
     editMode = false,
@@ -34,6 +37,14 @@ const TodoView = ({
         setEditMode(!editMode);
         setVariant(variant as "small" | "big");
     };
+
+    const handleEditSave = async (
+        id: number,
+        updates: { text?: string; status?: boolean; due_date?: string }
+    ) => {
+        onTodoUpdate(id, updates);
+        setEditMode(false);
+    };
     return (
         <div
             className={`flex flex-row gap-6 items-center w-full ${
@@ -44,7 +55,7 @@ const TodoView = ({
                 type="checkbox"
                 className="scale-150 cursor-pointer"
                 checked={todo.status}
-                onChange={() => onStatusChange(todo.id)}
+                onChange={() => onTodoUpdate(todo.id, { status: !todo.status })}
             />
             <h1
                 className={`text-xl tracking-wider max-w-xs ${todo.status ? "line-through" : ""} ${
@@ -68,7 +79,10 @@ const TodoView = ({
                         >
                             Cancel
                         </button>
-                        <button className="px-2 py-2 w-20 bg-[#62A388] text-white rounded hover:bg-green-400 cursor-pointer ">
+                        <button
+                            className="px-2 py-2 w-20 bg-[#62A388] text-white rounded hover:bg-green-400 cursor-pointer "
+                            onClick={() => handleEditSave(todo.id, { text: textValue })}
+                        >
                             Save
                         </button>
                     </div>
@@ -81,9 +95,11 @@ const TodoView = ({
             >
                 <SelectDay
                     date={selectedDate}
+                    createdAt={todo.created_at}
                     onChange={(date) => {
                         setSelectedDate(date);
-                        // Tee PATCH-pyyntö jos haluat tallentaa päivämäärän
+                        console.log(date);
+                        onTodoUpdate(todo.id, { due_date: date.toISOString().split("T")[0] });
                     }}
                     editMode={editMode}
                 />

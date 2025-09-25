@@ -7,9 +7,10 @@ interface SelectDayProps {
     date: Date | null;
     onChange: (date: Date) => void;
     editMode: boolean;
+    createdAt: Date | string;
 }
 
-const SelectDay = ({ date, onChange, editMode }: SelectDayProps) => {
+const SelectDay = ({ date, onChange, editMode, createdAt }: SelectDayProps) => {
     const [showDatePicker, setShowDatePicker] = useState(false);
 
     return (
@@ -23,7 +24,7 @@ const SelectDay = ({ date, onChange, editMode }: SelectDayProps) => {
                     className={`small-calendar cursor-pointer`}
                     onClick={() => setShowDatePicker((v) => !v)}
                 />
-                {date && date.toLocaleDateString("fi-FI")}
+                {new Date(createdAt).toLocaleDateString("fi-FI")}
             </span>
             {showDatePicker && (
                 <div className="absolute z-50 mt-2">

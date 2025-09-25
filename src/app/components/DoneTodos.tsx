@@ -5,11 +5,18 @@ import type { TodoType } from "../lib/types";
 
 interface ListOfTodosProps {
     todosList: { id: number; text: string; status: boolean }[];
-    onStatusChange: (id: number) => void;
+    onTodoUpdate: (
+        id: number,
+        updates: { text?: string; status?: boolean; due_date?: string }
+    ) => void;
     requestDelete: (todo: TodoType) => void;
 }
 
-const DoneTodos = ({ todosList, onStatusChange, requestDelete }: ListOfTodosProps) => {
+const DoneTodos = ({
+    todosList,
+    onTodoUpdate: onStatusChange,
+    requestDelete,
+}: ListOfTodosProps) => {
     return (
         <div>
             <h2 className="text-gray-500 mt-6 text-xl pl-4">COMPLETED:</h2>
@@ -18,7 +25,7 @@ const DoneTodos = ({ todosList, onStatusChange, requestDelete }: ListOfTodosProp
                     <TodoItem
                         key={todo.id}
                         todo={todo}
-                        onStatusChange={onStatusChange}
+                        onTodoUpdate={onStatusChange}
                         requestDelete={requestDelete}
                     />
                 ))}
