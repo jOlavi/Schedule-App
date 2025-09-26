@@ -32,6 +32,12 @@
     }
 }
 
+@layer components {
+    .crud-button {
+        @apply px-3 py-1 border-gray-500 border hover:border-gray-400 rounded-lg cursor-pointer;
+    }
+}
+
 body {
     background: var(--background);
     color: var(--foreground);
@@ -41,6 +47,12 @@ body {
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
     width: 35px;
     height: 35px;
+}
+.icon-small {
+    filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
 }
 .small-calendar {
     filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(100%) contrast(100%);

@@ -1,0 +1,30 @@
+Ideoita, mitä värejä voisi kokeilla.
+
+#26425A
+#86ABCF
+#E1CBD7
+#C38EB4
+
+
+
+###
+
+navColor #5D6B6B
+bg #8DD7D8
+#D5E5E5
+text #F1F7F7
+#F7CBCA
+
+
+####
+database käyttäjä tunnarit:
+Host: db
+Port: 5432
+Username: scheduleuser
+Password: schedulepass
+
+pgadmin tunnarit:
+Email: admin@admin.com
+Password: adminpass
+
+http://localhost:8080
