@@ -4,18 +4,22 @@ import TodoItem from "./TodoItem";
 import type { TodoType } from "../lib/types";
 
 interface ListOfTodosProps {
-    todosList: { id: number; text: string; status: boolean }[];
+    todosList: { id: number; text: string; status: boolean; created_at: Date | string }[];
     onTodoUpdate: (
         id: number,
         updates: { text?: string; status?: boolean; due_date?: string }
     ) => void;
     requestDelete: (todo: TodoType) => void;
+    allVariant: "small" | "big";
+    setAllVariant: (variant: "small" | "big") => void;
 }
 
 const DoneTodos = ({
     todosList,
     onTodoUpdate: onStatusChange,
     requestDelete,
+    allVariant,
+    setAllVariant,
 }: ListOfTodosProps) => {
     return (
         <div>
@@ -27,6 +31,8 @@ const DoneTodos = ({
                         todo={todo}
                         onTodoUpdate={onStatusChange}
                         requestDelete={requestDelete}
+                        allVariant={allVariant}
+                        setAllVariant={setAllVariant}
                     />
                 ))}
             </div>

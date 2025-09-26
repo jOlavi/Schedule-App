@@ -35,7 +35,7 @@ const TodoView = ({
 
     const handleEditModeToggle = (variant: string) => {
         setEditMode(!editMode);
-        setVariant(variant as "small" | "big");
+        // setVariant(variant as "small" | "big");
     };
 
     const handleEditSave = async (

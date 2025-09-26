@@ -12,26 +12,40 @@ interface TodoItemProps {
         updates: { text?: string; status?: boolean; due_date?: string }
     ) => void;
     requestDelete: (todo: TodoType) => void;
+    allVariant: "small" | "big";
+    setAllVariant: (variant: "small" | "big") => void;
 }
 
-const TodoItem = ({ todo, onTodoUpdate, requestDelete }: TodoItemProps) => {
+const TodoItem = ({
+    todo,
+    onTodoUpdate,
+    requestDelete,
+    allVariant,
+    setAllVariant,
+}: TodoItemProps) => {
     const [variant, setVariant] = useState<"small" | "big">("small");
     const [editMode, setEditMode] = useState(false);
     const [textValue, setTextValue] = useState(todo.text || "");
+
+    const effectiveVariant = allVariant === "small" ? variant : allVariant;
     return (
         <div className={`bg-background rounded-lg shadow-md `} key={todo.id}>
             <div className="flex flex-row gap-6 items-center  mr-4">
                 <div className="cursor-pointer pl-2">
                     <button
                         onClick={() => {
-                            setVariant(variant === "small" ? "big" : "small");
-                            setEditMode(false);
+                            if (allVariant === "small") {
+                                setVariant(variant === "small" ? "big" : "small");
+                                setEditMode(false);
+                            }
                         }}
                         className="flex items-center justify-center w-10  h-full cursor-pointer"
                     >
                         <Image
                             src={
-                                variant === "big" ? "/images/arrowup.svg" : "/images/arrowdown.svg"
+                                effectiveVariant === "big"
+                                    ? "/images/arrowup.svg"
+                                    : "/images/arrowdown.svg"
                             }
                             alt="arrow"
                             width={25}
@@ -48,7 +62,7 @@ const TodoItem = ({ todo, onTodoUpdate, requestDelete }: TodoItemProps) => {
                     editMode={editMode}
                     textValue={textValue}
                     setTextValue={setTextValue}
-                    variant={variant}
+                    variant={effectiveVariant}
                     setVariant={setVariant}
                 />
             </div>

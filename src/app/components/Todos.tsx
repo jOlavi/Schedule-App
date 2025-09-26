@@ -12,6 +12,7 @@ const Todos = () => {
     const [errorText, setErrorText] = useState<string>("");
     const [popupVisible, setPopupVisible] = useState(false);
     const [todoToDelete, setTodoToDelete] = useState<TodoType | null>(null);
+    const [allVariant, setAllVariant] = useState<"small" | "big">("small");
 
     useEffect(() => {
         const fetchTodos = async () => {
@@ -93,7 +94,7 @@ const Todos = () => {
         }
     };
     return (
-        <div className="w-[700px] overflow-x-auto">
+        <div className="w-[700px] ">
             <div className=" flex flex-row gap-4 justify-center">
                 <input
                     value={todo}
@@ -119,6 +120,8 @@ const Todos = () => {
                         )}
                     onTodoUpdate={onTodoUpdate}
                     requestDelete={requestDelete}
+                    allVariant={allVariant}
+                    setAllVariant={setAllVariant}
                 />
             </div>
             <div>
@@ -132,6 +135,8 @@ const Todos = () => {
                         )}
                     onTodoUpdate={onTodoUpdate}
                     requestDelete={requestDelete}
+                    allVariant={allVariant}
+                    setAllVariant={setAllVariant}
                 />
             </div>
             {popupVisible && (
