@@ -1,10 +1,13 @@
 Ideoita, mitä värejä voisi kokeilla.
+Esimerkiksi kun lisätään uusi eventti. 
 
 #26425A
 #86ABCF
 #E1CBD7
 #C38EB4
 
+
+"#62A388", "#E57373", "#FFD54F", "#64B5F6", "#81C784"
 
 
 ###

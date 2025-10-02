@@ -36,6 +36,12 @@
     .crud-button {
         @apply px-3 py-1 border-gray-500 border hover:border-gray-400 rounded-lg cursor-pointer;
     }
+    .hover-nav-item {
+        @apply flex hover:text-xl;
+    }
+    .button-styling {
+        @apply border-gray-500;
+    }
 }
 
 body {
